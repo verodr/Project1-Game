@@ -32,3 +32,15 @@
     height: 10%;
     width: 10%;
   }
+  .grid div.player {
+    background-image: url('../assets/cat.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+  }
+  .grid div.enemy {
+    background-image: url('../assets/mole.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+  }
