@@ -12,7 +12,8 @@ function init () {
     const charEnemy = 'enemy'
     const startPosition = 0
 
-
+    const gridRows = 8
+    const gridCol = 3
 
     function createGrid(){
         for(let i = 0; i < cellCount; i++){
@@ -24,11 +25,24 @@ function init () {
         }
         add(startingPosition, charPlayer)
         add(startPosition, charEnemy)
-      }
+    }
     function add(position, character){
         cells[position].classList.add(character)
     }
 
- createGrid()
+    function multiEnemies(row, col) {
+        for(i=0; i<row; i++) {
+            for (j=0; j< col; j++) {
+                let pos = i+j * width
+                add(pos,charEnemy)
+            }
+
+        }
+
+    }
+    
+
+    createGrid()
+    multiEnemies(gridRows, gridCol)
 }
 window.addEventListener('DOMContentLoaded', init)
