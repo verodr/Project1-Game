@@ -33,14 +33,24 @@
     width: 10%;
   }
   .grid div.player {
-    background-image: url('../assets/cat.png');
+    background-image: url('../assets/plane.jpg');
     background-repeat: no-repeat;
     background-size: contain;
-    cursor: pointer;
   }
   .grid div.enemy {
-    background-image: url('../assets/mole.png');
+    background-image: url('../assets/alien.jpg');
     background-repeat: no-repeat;
     background-size: contain;
-    cursor: pointer;
+  }
+  .grid div.missilesPlayer {
+    background-image:url('../assets/laser_blue.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 55%;
+  }
+  .grid div.missilesEnemy {
+    background-image:url('../assets/laser_red.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 25%;
   }

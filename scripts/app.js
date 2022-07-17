@@ -12,7 +12,8 @@ function init () {
 
     const charEnemy = 'enemy'
     const startPosition = 0
-    
+    const charMissilesPlayer = 'missilesPlayer'
+    const charMisslesEnemy = 'missilesEnemy'
     const gridRows = 3
     const gridCol = 8
 
@@ -28,10 +29,10 @@ function init () {
             cells.push(cell)
             grid.appendChild(cell)
         }
-        add(startingPosition, charPlayer)
-        add(startPosition, charEnemy)
+        addChar(startingPosition, charPlayer)
+
     }
-    function add(position, character){
+    function addChar(position, character){
         cells[position].classList.add(character)
     }
     
@@ -41,7 +42,7 @@ function init () {
         for(i=0; i<row; i++) {
             for (j=0; j< col; j++) {
                 let pos = i+j * width
-                add(pos,charEnemy)
+                addChar(pos,charEnemy)
             }
         }
     }
@@ -52,35 +53,10 @@ function init () {
 // cells.filter(i=> i in positions).map(addEnemy)
 // }
 
-    function remove(position, character){
+    function removeChar(position, character){
         cells[position].classList.remove(character)
     }
 
-    // function moveEnemy(start, end){
-    //     remove(start, charEnemy)
-    //     add(end, charEnemy)
-    // }
-
-    // function moveColumn(start, direction){
-    //     startArray = []
-    //     for(i=0; i< gridRows; i++){
-    //         startArray.push(start + i*width)
-    //     }
-    //     // maps the function moveEnemy to the end location, i.e. starting point plus number of rows.
-    //     // direction is used to move up or down
-    //     startArray.map(it=>{moveEnemy(it, it+direction*gridCol)})
-    // }
-
-    // function moveRow(start, direction){
-    //     // create the row to be moved using the index
-    //     startArray = []
-    //     for(i=0; i< gridCol; i++){
-    //         startArray.push(start + i)
-    //     }
-    //     // maps the function moveEnemy to the end location, i.e. starting point plus length of the grid times number of rows.
-    //     // direction is used to move up or down
-    //     startArray.map(it=>{moveEnemy(it, it+direction*gridRows*width)})
-    // }
 
     function moveLeftRight(direction){
         const en = document.querySelectorAll('.'+charEnemy)
@@ -88,40 +64,52 @@ function init () {
         en.forEach(it=>{idx.push(parseFloat(it.dataset.index))})
         idx = direction === 1 ? idx.reverse() : idx
         for(index of idx){
-            remove(index, charEnemy)
-            add(index + direction, charEnemy)
+            removeChar(index, charEnemy)
+            addChar(index + direction, charEnemy)
         }
     }
 
-    function moveDown(){
-        const en = document.querySelectorAll('.'+charEnemy)
+    function moveUpOrDown(charMovement){
+        let direction = (charMovement === charEnemy || charMovement === charMisslesEnemy) ? 1 : -1
+        const en = document.querySelectorAll('.' + charMovement)
         idx = []
         en.forEach(it=>{idx.push(parseFloat(it.dataset.index))})
         for(index of idx.reverse()){
-            remove(index, charEnemy)
-            add(index + width, charEnemy)
+            removeChar(index, charMovement)
+            addChar(index + direction * width, charMovement)
         }
 
     }
+    // function moveMissileUp(){
+    //     const missiles  = document.querySelectorAll('.'+ charMissilesPlayer)
+    //     idxMissile = []
+    //     missiles.forEach(item=>{idxMissile.push(parseFloat(item.dataset.index))})
+    //     for(index of idxMissile.reverse()){
+    //         removeChar(index, charMissilesPlayer)
+    //         addChar(index - width, charMissilesPlayer)
+    //     }
+    // }
 
     function playerMovement(event){
         const keyCode = event.keyCode
         const left = 37
         const right = 39
-        const shoot = 32
+        const shoot = 88
         
-        remove(playerPosition, charPlayer)
+        removeChar(playerPosition, charPlayer)
 
         if (left === keyCode && playerPosition % width !== 0){
             console.log(playerPosition % width)
             playerPosition -= 1
             } else if (right === keyCode && playerPosition % width !== width - 1){
             playerPosition += 1
+            } else if (shoot === keyCode){
+                addChar(playerPosition - width, charMissilesPlayer)
             } else {
             console.log('INVALID KEY')
             }
         
-        add(playerPosition, charPlayer)
+        addChar(playerPosition, charPlayer)
     }
 
 
@@ -129,12 +117,6 @@ function init () {
     createGrid()
     multiEnemies(gridCol, gridRows)
 
-    // moveColumn(0, 1)
-    // moveColumn(1, 1)
-    // moveColumn(9, -1)
-    //moveRow(0, 1)
-    //moveRow(10, 1)
-    //moveDown()
 
     function checkWall(direction){
         const en = document.querySelectorAll('.'+charEnemy)
@@ -142,15 +124,11 @@ function init () {
         let wallHit = direction === 1 ? (width - 1) : 0
         for(item of en){
             index = item.dataset.index
-            // console.log('index is', index)
-            // console.log('division is', index%width)
             if (index >= width * (width -2)){
-                console.log("DEFEAT")
                 return "DEFEAT"
             }
             if (index % width === wallHit) {
-                console.log('Moving Down')
-                moveDown()
+                moveUpOrDown(charEnemy)
                 return -direction
             }
         }
@@ -175,22 +153,20 @@ function init () {
     function startGame(){
         clearInterval(timer)
         let direction = 1
-        //moveLeftRight(direction) 
         timer = setInterval(() => {
             console.log('direction is ', direction)
-            direction = checkWall(direction)
+            //direction = checkWall(direction)
+            //moveUpOrDown(charMissilesPlayer)
+            //moveUpOrDown(charMisslesEnemy)
             if(direction === 'DEFEAT'){
                 endGame()
             }
-            // moveLeftRight(direction)
         }, 200)
         }
+        
+    addChar(37, charMisslesEnemy)
     startGame()
-    //moveLeftRight(1)
-    //moveLeftRight(1)
-    //moveLeftRight(-1)
-    //moveDown()
-    // checkWall(1)
-    // checkWall(1)
+
+
 }
 window.addEventListener('DOMContentLoaded', init)
