@@ -1,21 +1,21 @@
 * {
     box-sizing: border-box;
-  }
-  
-  body {
+}
+
+body {
     height: 100vh;
     margin: 0;
-  }
-  
-  
-  .grid-wrapper {
+}
+
+
+.grid-wrapper {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .grid {
+}
+
+.grid {
     align-items: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
     display: flex;
@@ -24,33 +24,55 @@
     justify-content: center;
     height: 600px;
     width: 600px;
-  }
-  
-  .grid div {
+}
+
+.grid div {
     border: 1px solid lightgrey;
     flex-grow: 1;
     height: 10%;
     width: 10%;
-  }
-  .grid div.player {
+}
+
+.grid div.player {
     background-image: url('../assets/plane.jpg');
     background-repeat: no-repeat;
     background-size: contain;
-  }
-  .grid div.enemy {
+}
+
+.grid div.enemy {
     background-image: url('../assets/alien.jpg');
     background-repeat: no-repeat;
     background-size: contain;
-  }
-  .grid div.missilesPlayer {
+}
+.grid div.missilesPlayer {
     background-image:url('../assets/laser_blue.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 55%;
-  }
-  .grid div.missilesEnemy {
+}
+.grid div.missilesEnemy {
     background-image:url('../assets/laser_red.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 25%;
-  }
+}
+
+.progress-outer{
+    height: 13px;
+    width: 11%;
+    background-color: lightgrey;
+    border-radius: 10px;
+}
+
+.transition {
+    transition: width .5s;
+}
+
+.progress-inner {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px 10px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+    transition: width 0.8s ease-in-out, border-radius 0.4s;
+    background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet, red);
+} 
