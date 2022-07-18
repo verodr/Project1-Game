@@ -1,5 +1,6 @@
 function init () {
     const grid = document.querySelector('.grid')
+    const play = document.querySelector('#red-button')
     const scoreSpan = document.getElementById('score-display')
     const progressbar = document.querySelector('.progress-inner')
     const livesDisplay = document.querySelector('#lives-display')
@@ -30,7 +31,7 @@ function init () {
     function createGrid(){
         for(let i = 0; i < cellCount; i++){
             const cell = document.createElement('div')
-            cell.innerText = i
+            // cell.innerText = i
             cell.dataset.index = i
             cells.push(cell)
             grid.appendChild(cell)
@@ -113,6 +114,7 @@ function init () {
             playerPosition += 1
             } else if (shoot === keyCode){
                 addChar(playerPosition - width, charMissilesPlayer)
+                // TODO play sound of missile
             } else {
             console.log('INVALID KEY')
             }
@@ -135,12 +137,13 @@ function init () {
         //below I determined the chance that the enemy will shoot defautl value 50%.
         if(Math.random() * speed < 0.5){
             addChar(randomEnemy + width, charMisslesEnemy)
+            //TODO play sound of missile 
         }
         
     }
 
 
-    document.addEventListener('keydown', playerMovement)
+    
     createGrid()
     multiEnemies(gridCol, gridRows)
 
@@ -182,6 +185,7 @@ function init () {
                     // console.log('Enemy is Hit ', idxPosition)
                     removeChar(idxPosition, charMissilesPlayer)
                     removeChar(idxPosition, charEnemy)
+                    // TODO add explosion and play sound
                     score += 50
                     console.log("score is", score)
                     scoreSpan.innerHTML = score
@@ -228,6 +232,7 @@ function init () {
         clearInterval(timerMissiles)
             // After a short delay (due to alert behaviour) alert the score and also update high score if needed
         setTimeout(() => {
+            //TODO gif victory or explosion.
             // console.log('GameOver is ', gameOver)
         // Alert score
         //alert('Your score is ' + score)
@@ -243,12 +248,14 @@ function init () {
         clearInterval(timer)
         clearInterval(timerMissiles)
         let direction = 1
+        //TODO play sound
+        document.addEventListener('keydown', playerMovement)
         timer = setInterval(() => {
             // console.log('gameOver is ', gameOver)
             direction = checkWall(direction)
             console.log('TIMER1: gameOver is ', gameOver)
             if(gameOver || lives === 0){
-               return endGame()
+            return endGame()
             }
         }, 1000)
         timerMissiles = setInterval(() => {
@@ -265,7 +272,8 @@ function init () {
 
     
 
-startGame()
+//startGame()
+play.addEventListener('click', startGame)
 
 
 }
