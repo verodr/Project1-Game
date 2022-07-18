@@ -5,6 +5,7 @@
 body {
     height: 100vh;
     margin: 0;
+  
 }
 
 .left-panel{
@@ -34,7 +35,7 @@ body {
 }
 
 .grid div {
-    border: 1px solid lightgrey;
+    /* border: 1px solid lightgrey; */
     flex-grow: 1;
     height: 10%;
     width: 10%;
@@ -64,6 +65,28 @@ body {
     background-size: 25%;
 }
 
+.grid div.explosion-gif {
+    background-image:url('../assets/explosion-gif.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 55%;
+}
+
+.battlefield div.gameWon {
+    background-image:url('https://media.giphy.com/media/Ljo7lUmOmJcaI/giphy.gif');
+    background-size: cover;
+    background-position: center;
+    width: 600px;
+    height: 600px;
+}
+
+.battlefield div.gameLost {
+    background-image:url('https://media.giphy.com/media/xT1XGLtjjDfqIjJCO4/giphy.gif');
+    background-size: cover;
+    background-position: center;
+    width: 600px;
+    height: 600px;
+}
 .progress-outer{
     height: 13px;
     width: 100%;
@@ -109,7 +132,9 @@ align-items: center;
 
 .scores {
     border: 2px solid black;
-width: 200px;
+    border-radius: 20px;
+    width: 200px;
+    box-shadow: 10px 10px 20px rgb(0 0 0 / 20%);
 }
 
 #score-display {
@@ -123,10 +148,31 @@ width: 200px;
 } 
 #lives-display{
     font-size : 50px;
+
 }
 .start-game{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+#red-button {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    font-size: 50px;
+    border: 1px solid black;
+    background: red;
+    box-shadow: 0 8px 0 rgb(183,9,0), 
+    0 15px 20px rgba(0,0,0,.35);
+
+}
+button{
+    cursor: pointer;
+}
+.go-button :hover{
+    filter: brightness(1.75);
+    color: lightgrey;
+    background-color: lightcoral;
+
 }

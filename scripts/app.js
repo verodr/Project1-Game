@@ -4,27 +4,31 @@ function init () {
     const scoreSpan = document.getElementById('score-display')
     const progressbar = document.querySelector('.progress-inner')
     const livesDisplay = document.querySelector('#lives-display')
-    const gameWon = document.querySelector('.game-won')
+    // const gameWon = document.querySelector('.game-won')
+    // const battlefield = document.querySelector('.battlefield')
 
     const width = 10
     const cellCount = width * width
     const cells = []
 
+    let soundEnemy = new Audio('./assets/laserEnemy.ogg')
+    let soundPlayer = new Audio('./assets/laserPlayer.ogg')
     const charPlayer = 'player'
     const startingPosition = 99
     let playerPosition = startingPosition
 
     const charEnemy = 'enemy'
-    const startPosition = 0
+    // const startPosition = 0
     const charMissilesPlayer = 'missilesPlayer'
     const charMisslesEnemy = 'missilesEnemy'
+    const charExplosion = 'explosion-gif'
     const gridRows = 3
     const gridCol = 8
 
     let timer
     let timerMissiles
     let score = 0
-    let gameOver = false
+    let gameOver = 'go'
     let lives = 3
     let completion = 100
 
@@ -115,7 +119,7 @@ function init () {
             playerPosition += 1
             } else if (shoot === keyCode){
                 addChar(playerPosition - width, charMissilesPlayer)
-                // TODO play sound of missile
+                soundPlayer.play()
             } else {
             console.log('INVALID KEY')
             }
@@ -126,9 +130,9 @@ function init () {
     function enemiesFire(speed=1) {
         const en = document.querySelectorAll('.'+charEnemy)
         if(en.length === 0){
-            gameOver = true
-            console.log('victory ')
-            alert('VICTORY!!!')
+            gameOver = 'victory'
+            console.log('victory enemyFire')
+            // alert('VICTORY!!! Enemy Fire')
             return
         }
         idx = []
@@ -138,7 +142,8 @@ function init () {
         //below I determined the chance that the enemy will shoot defautl value 50%.
         if(Math.random() * speed < 0.5){
             addChar(randomEnemy + width, charMisslesEnemy)
-            //TODO play sound of missile 
+            soundEnemy.play()
+
         }
         
     }
@@ -153,8 +158,8 @@ function init () {
         const en = document.querySelectorAll('.'+charEnemy)
         if (en.length === 0) {
             console.log('victory ')
-            alert('VICTORY!!!')
-            gameOver = true
+            // alert('VICTORY!!!')
+            gameOver = 'victory'
             return
         }
         // console.log('direction = ', direction)
@@ -162,7 +167,7 @@ function init () {
         for(item of en){
             index = item.dataset.index
             if (index >= width * (width -2)){
-                gameOver = true
+                gameOver = 'defeat'
                 return direction
             }
             if (index % width === wallHit) {
@@ -186,6 +191,8 @@ function init () {
                     // console.log('Enemy is Hit ', idxPosition)
                     removeChar(idxPosition, charMissilesPlayer)
                     removeChar(idxPosition, charEnemy)
+                    addChar(idxPosition, charExplosion)
+                    setTimeout(() => {removeChar(idxPosition, charExplosion)}, 180)
                     // TODO add explosion and play sound
                     score += 50
                     console.log("score is", score)
@@ -228,13 +235,14 @@ function init () {
         
 
     function cleanUp() {
-        score = 0
-        gameOver = false
-        lives = 3
-        completion = 100
+        // score = 0
+        // lives = 3
+        // completion = 100
         cells.map(item=>{removeChar(parseFloat(item.dataset.index), charEnemy)})
         cells.map(item=>{removeChar(parseFloat(item.dataset.index), charMissilesPlayer)})
         cells.map(item=>{removeChar(parseFloat(item.dataset.index), charMisslesEnemy)})
+        grid.classList.remove('gameWon')
+        grid.classList.remove('gameLost')
         console.log('removing player at', playerPosition)
         console.log('add player at', startingPosition)
         removeChar(playerPosition, charPlayer)
@@ -251,12 +259,19 @@ function init () {
         // console.log('timesMiss is ', timerMissiles)
         clearInterval(timer)
         clearInterval(timerMissiles)
+        cleanUp()
+        removeChar(playerPosition, charPlayer)
             // After a short delay (due to alert behaviour) alert the score and also update high score if needed
         setTimeout(() => {
-            //TODO gif victory or explosion.
+            if (gameOver === 'victory') {
+                grid.classList.add('gameWon')
+            } else {
+            grid.classList.add('gameLost')
+            }
+            
             // console.log('GameOver is ', gameOver)
         // Alert score
-        
+
         // alert('GAME OVER. Your score is ' + score)
               // Update high score
             //   setHighScore(score)
@@ -265,12 +280,15 @@ function init () {
 
     
     function startGame(){
+        // let myAudio = document.querySelector('#audio')
+        
+        //soundEnemy.play()
         // let timer
         // let timerMissiles
-        // score = 0
-        gameOver = false
-        // lives = 3
-        // completion = 100
+        score = 0
+        gameOver = 'go'
+        lives = 3
+        completion = 100
         let direction = 1
         clearInterval(timer)
         clearInterval(timerMissiles)
@@ -279,7 +297,7 @@ function init () {
         // cells.map(item=>{removeChar(parseFloat(item.dataset.index), charMisslesEnemy)})
         // removeChar(playerPosition, charPlayer)
         // addChar(startingPosition, charPlayer)
-        //TODO play sound
+        //TODO play sound to start game
         // below we create the event listener for the player actions and the enemied at the starting positions.
         cleanUp()
         document.addEventListener('keydown', playerMovement)
@@ -288,7 +306,7 @@ function init () {
             // console.log('gameOver is ', gameOver)
             direction = checkWall(direction)
             // console.log('TIMER1: gameOver is ', gameOver)
-            if(gameOver || lives === 0){
+            if(gameOver != 'go' || lives === 0){
             return endGame()
             }
         }, 1000)
@@ -297,7 +315,7 @@ function init () {
             moveUpOrDown(charMissilesPlayer)
             moveUpOrDown(charMisslesEnemy)
             // console.log('TIMER2: gameOver is ', gameOver)
-            if(gameOver  || lives === 0){
+            if(gameOver !='go' || lives === 0){
                 return endGame()
             }
         }, 500)
@@ -310,6 +328,15 @@ function init () {
 createGrid()
 play.addEventListener('click', startGame)
 
+
+// const soundPlayer = new Audio('./assets/laserPlayer.ogg')
+// let soundEnemy = new Audio('./assets/ever.wav')
+
+// soundEnemy.play()
+// const gridW = document.querySelector('.grid-wrapper')
+
+// battlefield.appendChild(gameWon)
+//.appendChild(gameWon) 
 
 }
 window.addEventListener('DOMContentLoaded', init)
