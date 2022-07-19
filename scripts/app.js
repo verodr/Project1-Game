@@ -12,6 +12,8 @@ function init () {
     let soundEnemy = new Audio('./assets/laserEnemy.ogg')
     let soundPlayer = new Audio('./assets/laserPlayer.ogg')
     let enemyExplosion = new Audio('./assets/enemy-expl.ogg')
+    let soundPlay = new Audio('./assets/goSound.wav')
+    let surviveSound = new Audio('./assets/survive.ogg')
     const charPlayer = 'player'
     const startingPosition = 99
     let playerPosition = startingPosition
@@ -217,6 +219,7 @@ function init () {
         setTimeout(() => {
             if (gameOver === 'victory') {
                 grid.classList.add('gameWon')
+                surviveSound.play()
             } else {
             livesDisplay.innerHTML = "💔" 
             grid.classList.add('gameLost')
@@ -237,6 +240,8 @@ function init () {
         clearInterval(timer)
         clearInterval(timerMissiles)
         //TODO play sound to start game
+        soundPlay.play()
+
         // below we create the event listener for the player actions and the enemied at the starting positions.
         cleanUp()
         document.addEventListener('keydown', playerMovement)
