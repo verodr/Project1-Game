@@ -5,25 +5,30 @@
     <title>VERITO</title>
     <link rel="stylesheet" href="styles/main.css">
     <script src="scripts/app.js" charset="utf-8"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
     </head>
     <body>
+        <header> <h1><em>Independence-Day</em></h1></header>
         <div class ="container">
-            <main>
+        <main>
             <section class = "left-panel">
                 <div class = "heading">
-                    <h1>Independence-Day</h1>
+                    <!-- <h1><em>Independence-Day</em></h1> -->
                 </div>
                 <div class="start-game">
                     <div class= "instructions">
-                        <p>Play-Game (o) PUSH RED BUTTON<p>
+                        <p>PUSH <span class = "functions">'GO'</span> BUTTON to Play<p>
                         <p>Left-Arrow (<) MOVE LEFT<p>
                         <p>Right-Arrow (>) MOVE RIGHT<p>
-                        <p>Space-Bar (-) SHOOT<p>
-                        <p> I love Javascript</p>
+                        <p>Press X to SHOOT<p>
+                        <p>PUSH <span class = "functions">'RESTART'</span> BUTTON to Reload</p>
                     </div>
                 <div class= "go-button">
                     <button id="red-button">GO!</button>
                     </div> 
+                </div>
             </section>  
             <div class = "battlefield">
                 <!-- <h1>Indipendence-Day</h1> -->
@@ -36,27 +41,19 @@
             <div class = "control-container">
                 <div class="control-panel">
                     <p id="lives-display">❤️❤️❤️</p>
+                    </div>
                 <div class="progress-outer transition">
                     <div class="progress-inner"></div>
                 </div>
-            </div>
-            <!-- <div class="start-game">
-                <div class= " Instructions">
-                    <p>Play-Game (o) PUSH RED BUTTON<p>
-                    <p>Left-Arrow (<) MOVE LEFT<p>
-                    <p>Right-Arrow (>) MOVE RIGHT<p>
-                    <p>Space-Bar (-) SHOOT<p>
-                    <p> I love Javascript</p>
-                </div>
-                <div class= "go-button">
-                    <button id="red-button">GO!</button>
-                </div>   -->
-        
-            <div class= "scores">        
-                <div class= "score-counter">
+                <div class= "scores">        
+                    <div class= "score-counter">
                     <p class= "number-size"><span id="score-display">0</span></p>
-                <div>
-            
+                    </div>
+                </div>
+                <div class = "restart-button">
+                    <button id = "reload-page">RESTART</button>
+                </div>
+            </div>
         <audio></audio>
     </div>
 

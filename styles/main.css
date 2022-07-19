@@ -3,9 +3,20 @@
 }
 
 body {
-    height: 100vh;
-    margin: 0;
+    max-width: 100%;
+    margin: 0; 
   
+}
+h1 {
+    font-family: 'Orbitron', sans-serif; 
+    font-size: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+}
+@font-face {
+    font-family: technology;
+    src: url(Technology.ttf);
 }
 
 .left-panel{
@@ -17,7 +28,7 @@ body {
     height: 650px
 }
 .grid-wrapper {
-    height: 100vh;
+    min-height: calc(100vh - 90px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,6 +43,12 @@ body {
     justify-content: center;
     height: 600px;
     width: 600px;
+    /* background-image:url("../assets/sky.jpg") ; */
+    background-image:url("../assets/bg.jpeg") ;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
 }
 
 .grid div {
@@ -42,24 +59,24 @@ body {
 }
 
 .grid div.player {
-    background-image: url('../assets/plane.jpg');
+    background-image: url('../assets/plane1.png');
     background-repeat: no-repeat;
     background-size: contain;
 }
 
 .grid div.enemy {
-    background-image: url('../assets/alien.jpg');
+    background-image: url('../assets/alien.png');
     background-repeat: no-repeat;
     background-size: contain;
 }
 .grid div.missilesPlayer {
-    background-image:url('../assets/laser_blue.jpg');
+    background-image:url('../assets/laser_blue.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 55%;
 }
 .grid div.missilesEnemy {
-    background-image:url('../assets/laser_red.jpg');
+    background-image:url('../assets/laser_red.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 25%;
@@ -89,7 +106,7 @@ body {
 }
 .progress-outer{
     height: 13px;
-    width: 100%;
+    width: 50%;
     background-color: lightgrey;
     border-radius: 10px;
 }
@@ -107,17 +124,22 @@ body {
     background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet, red);
 } 
 .instructions {
-background-color: rgba(0,0,0,.9);
-    color: white;
+    background-color: rgba(0,0,0,.9);
+    color:lightgreen;
     padding: 20px;
     border-radius: 5px;
     margin: 10px;
     box-shadow: 10px 10px 20px rgb(0 0 0 / 20%);
     width: 250px;
+    font-family: technology;
+    font-size: 20px;
 }
 main {
+    display: block;
     display: flex;
-    justify-content: center
+    justify-content: center;
+    background-color: #e3efe8;
+    background-image: linear-gradient(315deg, #e3efe8 0%, #96a7cf 74%);
 }
 
 .control-container {
@@ -131,20 +153,26 @@ align-items: center;
 }
 
 .scores {
-    border: 2px solid black;
+    border: 1px solid black;
     border-radius: 20px;
     width: 200px;
     box-shadow: 10px 10px 20px rgb(0 0 0 / 20%);
+    background-color: #637081;
+    background-image: linear-gradient(315deg, #637081 0%, #7c98b3 74%);
 }
 
 #score-display {
     display: flex;
     flex-direction: row-reverse;
+    font-family: technology;
+    background: darkgreen;
+    color: lightgree
 }
 .number-size {
     border: 1px solid gold;
     margin: 20px;
     font-size: 80px;
+    color: lightgreen;
 } 
 #lives-display{
     font-size : 50px;
@@ -168,7 +196,7 @@ align-items: center;
 
 }
 button{
-    cursor: pointer;
+    cursor: pointer;    
 }
 .go-button :hover{
     filter: brightness(1.75);
@@ -176,3 +204,26 @@ button{
     background-color: lightcoral;
 
 }
+#reload-page {
+    height: 70px;
+    width: 150px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    border: 1px solid #fff;
+    background: #c0a920;
+    box-shadow: 0 7px 0 rgb(108 73 6), 
+    0 15px 20px rgba(0,0,0,.35);  
+}
+.restart-button :hover {
+    filter: brightness(1.35);
+    color: lightgrey;
+    background-color: #ceb528;
+}
+.functions {
+    text-decoration: underline;
+}
+header {
+    padding: 5px;
+}
+
