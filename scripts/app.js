@@ -17,7 +17,6 @@ function init () {
     const charPlayer = 'player'
     const startingPosition = 99
     let playerPosition = startingPosition
-
     const charEnemy = 'enemy'
     const charMissilesPlayer = 'missilesPlayer'
     const charMisslesEnemy = 'missilesEnemy'
@@ -78,7 +77,7 @@ function init () {
         for(index of idx.reverse()){
             removeChar(index, charMovement)
             if(checkHit(index + direction * width, charMovement) === 0){
-                // performs checks on the new position. If the check is passed, then adds the new element at the position
+                // makes checks on the new position. If the check is passed, then adds the new element at the position
                 addChar(index + direction * width, charMovement)
             }
         }
@@ -89,11 +88,9 @@ function init () {
         const left = 37
         const right = 39
         const shoot = 88
-        console.log('Player position is ', playerPosition)
         removeChar(playerPosition, charPlayer)
 
         if (left === keyCode && playerPosition % width !== 0){
-            console.log(playerPosition % width)
             playerPosition -= 1
             } else if (right === keyCode && playerPosition % width !== width - 1){
             playerPosition += 1
@@ -101,7 +98,7 @@ function init () {
                 addChar(playerPosition - width, charMissilesPlayer)
                 soundPlayer.play()
             } else {
-            console.log('INVALID KEY')
+            // console.log('INVALID KEY')
             }
         addChar(playerPosition, charPlayer)
     }
@@ -110,7 +107,6 @@ function init () {
         const en = document.querySelectorAll('.'+charEnemy)
         if(en.length === 0){
             gameOver = 'victory'
-            console.log('victory enemyFire')
             return
         }
         idx = []
@@ -127,7 +123,6 @@ function init () {
     function checkWall(direction){
         const en = document.querySelectorAll('.'+charEnemy)
         if (en.length === 0) {
-            console.log('victory ')
             gameOver = 'victory'
             return
         }
@@ -160,12 +155,11 @@ function init () {
                     setTimeout(() => {removeChar(idxPosition, charExplosion)}, 180)
                     enemyExplosion.play()
                     score += 50
-                    console.log("score is", score)
                     scoreSpan.innerHTML = score
                     return 1
                 }    
             } else if (charElement === charMisslesEnemy) {
-                // cheks if the element is a Missile from the Enemy
+                // checks if the element is a Missile from the Enemy
                 if (cells[idxPosition].classList.contains(charPlayer )) {
                     // checks if the cell contains the Player
                     removeChar(idxPosition, charMisslesEnemy)
@@ -187,7 +181,6 @@ function init () {
             return 0
         } else{ 
     // The given position is outside the boundaries of the Grid.
-    // console.log('idxPos is outside the Grid ', idxPosition)
             return 1
         }
     }
@@ -198,8 +191,6 @@ function init () {
         cells.map(item=>{removeChar(parseFloat(item.dataset.index), charMisslesEnemy)})
         grid.classList.remove('gameWon')
         grid.classList.remove('gameLost')
-        console.log('removing player at', playerPosition)
-        console.log('add player at', startingPosition)
         removeChar(playerPosition, charPlayer)
         addChar(startingPosition, charPlayer)
         playerPosition = startingPosition
@@ -215,7 +206,7 @@ function init () {
         cleanUp()
         removeChar(playerPosition, charPlayer)
         document.removeEventListener('keydown', playerMovement)
-            // After a short delay (due to alert behaviour) alert the score and also update high score if needed
+        
         setTimeout(() => {
             if (gameOver === 'victory') {
                 grid.classList.add('gameWon')
@@ -224,9 +215,6 @@ function init () {
             livesDisplay.innerHTML = "💔" 
             grid.classList.add('gameLost')
             }
-            //up in case of gamelost put directlythe crush heart
-              // Update high score
-            //   setHighScore(score)
         }, 50)
     }
 
@@ -239,10 +227,8 @@ function init () {
         let direction = 1
         clearInterval(timer)
         clearInterval(timerMissiles)
-        //TODO play sound to start game
         soundPlay.play()
-
-        // below we create the event listener for the player actions and the enemied at the starting positions.
+        // below I create the event listener for the player actions and the enemied at the starting positions.
         cleanUp()
         document.addEventListener('keydown', playerMovement)
         multiEnemies(gridCol, gridRows)
