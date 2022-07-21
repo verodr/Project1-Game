@@ -77,7 +77,6 @@ function init () {
         for(index of idx.reverse()){
             removeChar(index, charMovement)
             if(checkHit(index + direction * width, charMovement) === 0){
-                // makes checks on the new position. If the check is passed, then adds the new element at the position
                 addChar(index + direction * width, charMovement)
             }
         }
