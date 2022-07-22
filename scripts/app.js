@@ -39,8 +39,8 @@ function init () {
             grid.appendChild(cell)
         }
         addChar(startingPosition, charPlayer)
-
     }
+
     function addChar(position, character){
         cells[position].classList.add(character)
     }
@@ -245,7 +245,7 @@ function init () {
                 return endGame()
             }
         }, 500)
-        }
+    }
 createGrid()
 play.addEventListener('click', startGame)
 reloadPage.addEventListener('click',function(){window.location.reload()})
