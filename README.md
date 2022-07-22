@@ -6,7 +6,7 @@ The player, with his plane and his missiles, can try to win the battle against t
 
 ## Deployment link
 
-@@ TO DO
+Try my game [here](https://verodr.github.io/Project1-Game/ "Independence-Day")
 
 ## Timeframe & Working Team 
 
