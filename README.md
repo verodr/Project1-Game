@@ -36,7 +36,7 @@ First, after the project was assigned to me, I designed its  wireframe which all
 
 ## Build/Code Process
 
-### Phase 1 : GRID AND CHARACTERS
+### Phase 1 : Grid And Characters
 - I created the grid with a function which finds the global variable cellCount and makes a new <div> element on every loop, attaching it to the cell array and appending a new child to the class “grid”.
 
 ``` javascript
@@ -107,7 +107,7 @@ If no borders are reached then just move the block of enemies to the left or the
        return direction
    }
 ```
-### Fase 3: THE BATTLE
+### Fase 3: The Battle
 The battle phase is implemented in two functions: enemyFire and checkHit. The first one randomly selects one enemy from the remaining ones and generates a missile for it. The rate of fire is controlled by the function parameter (“speed”) and a random number generator. The higher the parameter, the slower the enemy fire.
 ``` javascript 
     if(Math.random() * speed < 0.5){
