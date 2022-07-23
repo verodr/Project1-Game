@@ -25,10 +25,10 @@ This project had to be carried out individually in a maximum of one week.
 - Audacity (to cut the audio effects)
 
 ## Brief
-Render a game in the browser:
-Be built on a grid;
-Design logic for winning & visually display which player won;
-Include separate HTML / CSS / JavaScript files.
+- Render a game in the browser:
+- Be built on a grid;
+- Design logic for winning & visually display which player won;
+- Include separate HTML / CSS / JavaScript files.
  
 ## Planning
 ![wireframe](https://user-images.githubusercontent.com/106544788/180369823-20c98838-14dd-45c4-897b-599a43c82681.png)
@@ -50,7 +50,7 @@ function createGrid(){
        addChar(startingPosition, charPlayer)
    }
 ```
-I created two general functions to add and remove the different characters; two variables, one for the rows, one for the columns and two nested for loops to multiply my enemies in multiple cells.
+I created two general functions to add and remove the different characters, then I added two variables, one for the rows, one for the columns and two nested for loops to multiply my enemies in multiple cells.
 
 ### Phase 2: The Character Movements
 I wrote the movement function for the player and a variable for the player position.
@@ -79,11 +79,11 @@ The second function (moveUpOrDown) takes as input a character’s class. It firs
    }
 ```
 ### Function checkWall
-The function checkWall wraps around the movement functions for the enemies. Its main purposes are:
-Check if there are any enemies left on the grid. If not set the game status to victory and return
-If the direction of enemy movement is to the right then check if the right border of the grid is reached. If so, switch the movement from right to down and invert the direction.
-If the direction of enemy movement is to the left then check if the left border of the grid is reached. If so, switch the movement from right to down and invert the direction.
-If no borders are reached then just move the block of enemies to the left or the right depending on the value of the direction variable.
+The function checkWall wraps around the movement functions for the enemies. Its main purpose is to check if there are any enemies left on the grid: 
+- If not set the game status to victory and returns;
+- If the direction of enemy movement is to the right then check if the right border of the grid is reached. If so, switch the movement from right to down and invert the direction;
+- If the direction of enemy movement is to the left then check if the left border of the grid is reached. If so, switch the movement from right to down and invert the direction;
+- If no borders are reached then just move the block of enemies to the left or the right depending on the value of the direction variable.
 ``` javascript
    function checkWall(direction){
        const en = document.querySelectorAll('.'+charEnemy)
@@ -107,7 +107,7 @@ If no borders are reached then just move the block of enemies to the left or the
        return direction
    }
 ```
-### Fase 3: The Battle
+### Phase 3: The Battle
 The battle phase is implemented in two functions: enemyFire and checkHit. The first one randomly selects one enemy from the remaining ones and generates a missile for it. The rate of fire is controlled by the function parameter (“speed”) and a random number generator. The higher the parameter, the slower the enemy fire.
 ``` javascript 
     if(Math.random() * speed < 0.5){
@@ -116,12 +116,12 @@ The battle phase is implemented in two functions: enemyFire and checkHit. The fi
     }
 ```
 The function checkHit checks if a collision with any missile has occurred. There are two different cases to consider, both handled by a nested if condition: 
-One enemy missile has reached the player: in this case the function removes the enemy missile, decreases the life bar and, if needed, removes one heart. 
-One player’s missile has reached an enemy: in this case both the enemy and the missile are removed, the score is increased and a short explosion gif replaces the enemy while an explosion sound is played. 
-If no collision has happened this function returns zero and allows the movement function to proceed by moving the missiles up or down.
+- one enemy missile has reached the player: in this case the function removes the enemy missile, decreases the life bar and, if needed, removes one heart; 
+- One player’s missile has reached an enemy: in this case both the enemy and the missile are removed, the score is increased and a short explosion gif replaces the enemy while an explosion sound is played;
+- If no collision has happened this function returns zero and allows the movement function to proceed by moving the missiles up or down.
 
 ### Phase 4: Main loop
-The main functions of the game are “startGame” and “endGame” The first activates two setInterval loops: one for the movement of the enemies and one for the movement of the missiles. I’ve chosen two different timers in order to make the missiles faster than the enemies which gives some more realism to the game.
+The main functions of the game are “startGame” and “endGame”. The first activates two setInterval loops: one for the movement of the enemies and one for the movement of the missiles. I’ve chosen two different timers in order to make the missiles faster than the enemies which gives some more realism to the game.
 ``` javascript
 document.addEventListener('keydown', playerMovement)
        multiEnemies(gridCol, gridRows)
@@ -142,17 +142,17 @@ document.addEventListener('keydown', playerMovement)
    }
 ```
 The functions startGame also checks for any game-over conditions and, if any is met, it calls the endGame function which stops the timers, disables the player movements, eliminates all characters from the grid and displays the game outcome: victory or defeat.
-The instructions to reset the game are contained in the cleanUp function. It eliminates all the enemies and missiles from the grid, resets the player’s position as well as the number of lives and progress bar.
+The instructions to reset the game are contained in the cleanUp function which eliminates all the enemies and missiles from the grid, resets the player’s position as well as the number of lives and progress bar.
 
 ![game_demo](https://user-images.githubusercontent.com/106544788/180369442-57559a3c-fe2b-4332-a52d-b2902e151b23.gif)
 
 ## Challenges
-The two most big challenges were: 
-making all the enemies move together to the wall, tell them to move down one cell and then to start again in the opposite direction. I sorted out the issue creating a function which makes the enemies look directly to the opposite wall. (See above the function checkWall).
-At the end of the game, once the final GIF has appeared, the player and his missiles continue to be shown over the Gif, so I had to disable the eventListener on the player before cleaning up the grid.	
+The two biggest challenges were: 
+- making all the enemies move together to the wall, tell them to move down one cell and then to start again in the opposite direction. I sorted out the issue creating a function which makes the enemies look directly to the opposite wall. (See above the function checkWall);
+- At the end of the game, once the final GIF has appeared, the player and his missiles continued to be shown over the Gif, so I had to disable the eventListener on the player before cleaning up the grid.	
 
 ## Wins
-Certainly the phase of this project that I am most proud of is the one related to the movements of the main characters of the videogame and the missiles, followed by the phase in which I made sure that my display counter showed the score and my bar and mine hearts responded to the vital conditions of my player.
+Certainly the phase of this project that I am most proud of is the one related to the movements of the main characters of the videogame and the missiles, followed by the phase in which I made sure that my display counter showed the score and my bar and hearts responded to the vital conditions of my player.
 I created two separate set intervals for the enemy movements and the missiles to give several speeds to the game and so more dynamicity to the action: the best setting for the intervals turned out to be multiples of one another (e.g. 1000ms and 500ms).
 Last but not least, I am very proud to have used my grid as a screen where my final GIFs appear as a surprise effect.
 
